@@ -10,7 +10,7 @@ def drawMenuBg():
     gamepad.blit(menuBg,(0,0))
 
 #타이틀 그리기
-def drawMenuTitle(x,y):
+def drawMenuTitle(x:float,y:float):
     global gamepad, menuTitle
     gamepad.blit(menuTitle,(x,y))
 
@@ -39,7 +39,7 @@ def initMenuList():
     ]
 
 #메뉴 그리기
-def drawMenuList(curIndex):
+def drawMenuList(curIndex:int):
     global gamepad, menuListFont, menuList
 
     initX = pad_width*0.5
