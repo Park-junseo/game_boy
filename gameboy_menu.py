@@ -19,7 +19,7 @@ def initMenuTitle():
     global menuTitle
 
     mTW = pad_width*0.9
-    mTH = float(menuTitle.get_height())/float(menuTitle.get_width() * mTW)
+    mTH = menuTitle.get_height()/menuTitle.get_width() * mTW
     menuTitle = pygame.transform.scale(menuTitle, (mTW,mTH))
     menuTitle_W = menuTitle.get_width()
     titleY = pad_hegith*0.25
@@ -116,8 +116,8 @@ def initGame():
     pygame.init()
     gamepad = pygame.display.set_mode((pad_width, pad_hegith))
     pygame.display.set_caption(gameTitle)
-    menuBg = pygame.image.load(mainBgSrc).convert()
-    menuTitle = pygame.image.load(mainTitleSrc).convert()
+    menuBg = pygame.image.load(mainBgSrc)
+    menuTitle = pygame.image.load(mainTitleSrc)
     initMenuList()
     #e: 초기 설정
 
