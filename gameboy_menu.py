@@ -116,8 +116,8 @@ def initGame():
     pygame.init()
     gamepad = pygame.display.set_mode((pad_width, pad_hegith))
     pygame.display.set_caption(gameTitle)
-    menuBg = pygame.image.load(mainBgSrc)
-    menuTitle = pygame.image.load(mainTitleSrc)
+    menuBg = pygame.image.load(mainBgSrc).convert()
+    menuTitle = pygame.image.load(mainTitleSrc).convert()
     initMenuList()
     #e: 초기 설정
 
