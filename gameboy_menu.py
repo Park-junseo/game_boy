@@ -19,7 +19,7 @@ def initMenuTitle():
     global menuTitle
 
     mTW = pad_width*0.9
-    mTH = menuTitle.get_height()/menuTitle.get_width() * mTW
+    mTH = float(menuTitle.get_height())/float(menuTitle.get_width() * mTW)
     menuTitle = pygame.transform.scale(menuTitle, (mTW,mTH))
     menuTitle_W = menuTitle.get_width()
     titleY = pad_hegith*0.25
