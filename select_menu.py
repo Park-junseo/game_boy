@@ -1,3 +1,4 @@
+import os
 import pygame
 from env import *
 from pygame.surface import Surface
@@ -102,7 +103,7 @@ def initGame():
     #s: 초기 설정
     pygame.init()
     gamepad = pygame.display.set_mode((pad_width, pad_hegith))
-    menuBg = pygame.image.load(mainBgSrc).convert_alpha()
+    menuBg = pygame.image.load(os.path.join(rpImages, rsMainBgSrc))#pygame.image.load(mainBgSrc).convert_alpha()
     initMenuList()
     #e: 초기 설정
 

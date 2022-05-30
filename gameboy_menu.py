@@ -1,5 +1,6 @@
 __author__ = 'psbsanno@gmail.com'
 
+import os
 import pygame
 
 from env import *
@@ -116,8 +117,8 @@ def initGame():
     pygame.init()
     gamepad = pygame.display.set_mode((pad_width, pad_hegith))
     pygame.display.set_caption(gameTitle)
-    menuBg = pygame.image.load(mainBgSrc).convert_alpha()
-    menuTitle = pygame.image.load(mainTitleSrc).convert_alpha()
+    menuBg = pygame.image.load(os.path.join(rpImages, rsMainBgSrc))#pygame.image.load(mainBgSrc).convert_alpha()
+    menuTitle = pygame.image.load(os.path.join(rpImages, rpmainTitleSrc)) #pygame.image.load(mainTitleSrc).convert_alpha()
     initMenuList()
     #e: 초기 설정
 
