@@ -69,6 +69,7 @@ class GPIOKey(threading.Thread):
         GPIOKey.gpioKey = None
         GPIO.cleanup()
     
+    @staticmethod
     def start() :
         if GPIOKey.gpioKey == None:
             GPIOKey.gpioKey = GPIOKey()
