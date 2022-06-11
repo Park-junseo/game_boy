@@ -93,6 +93,7 @@ class Ultrasonic(threading.Thread):
 
         while self.isStart:
             self.distance = self.controlUltrasonic()
+            time.sleep(0.3)
 
             
     def endGame(self) :
