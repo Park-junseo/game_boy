@@ -129,7 +129,7 @@ def runGame():
             elif y > pad_height - aircraft_height:
                 y = pad_height - aircraft_height
 
-            print("distance" + str(y))
+            # print("distance" + str(y))
         # e:울트라센서
 
         # 피카츄 위치
