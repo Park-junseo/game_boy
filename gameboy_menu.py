@@ -126,7 +126,6 @@ def runGame():
 
         clock.tick(60)
 
-    gkey.cleanupGPIO()
     pygame.quit()
 
 def initGame():
@@ -148,6 +147,7 @@ def initGame():
 
     clock = pygame.time.Clock()
     runGame()
+    gkey.cleanupGPIO()
 
 #jaejun
 

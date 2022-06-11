@@ -130,6 +130,7 @@ def initGame():
 
     clock = pygame.time.Clock()
     runGame()
+    gkey.cleanupGPIO()
 
 # 여기에서 실행 시 gameboy_menu로 실행
 if __name__ == '__main__':
