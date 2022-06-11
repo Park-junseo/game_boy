@@ -103,7 +103,7 @@ class Ultrasonic(threading.Thread):
             self.isStart = True
             print("start!")
         
-        while self.isEnd == False & GPIO != None:
+        while self.isEnd == False and GPIO != None:
             self.distance = self.controlUltrasonic()
 
             
