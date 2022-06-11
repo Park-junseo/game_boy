@@ -3,6 +3,8 @@ import pygame
 from env import *
 from pygame.surface import Surface
 
+import gpio.button as button
+
 def drawMenuBg():
     global gamepad, menuBg
     gamepad.blit(menuBg,(0,0))
@@ -60,7 +62,7 @@ def getMenuList(index):
     return menuList[index]
 
 def runGame():
-    global gamepad, clock, menuKey
+    global gamepad, clock, menuKey, gkey
 
     
     crashed =False
@@ -86,6 +88,20 @@ def runGame():
 
             #e: 키 조작
 
+        #s: gpio 키조작
+        if gkey.getCurPressedKey("UP") :
+            menuKey = getMenuKey(-1)
+        elif gkey.getCurPressedKey("DOWN") :
+            menuKey = getMenuKey(1)
+        elif gkey.getCurPressedKey("X") :
+            crashed = True
+        elif gkey.getCurPressedKey("CON") :
+            if getMenuList(menuKey) == "Back":
+                import gameboy_menu
+                gameboy_menu.initGame()
+                return
+        #e: gpio 키조작
+
         #s: 화면 표시
         gamepad.fill(WHITE)
         drawMenuBg()
@@ -98,13 +114,18 @@ def runGame():
     pygame.quit()
 
 def initGame():
-    global gamepad, clock, menuBg
+    global gamepad, clock, menuBg, gkey
 
     #s: 초기 설정
     pygame.init()
     gamepad = pygame.display.set_mode((pad_width, pad_hegith))
     menuBg = pygame.image.load(os.path.join(rpImages, rsMainBgSrc))#pygame.image.load(mainBgSrc).convert_alpha()
     initMenuList()
+
+    gkey = button.GPIOKey()
+    gkey.daemon = True
+    gkey.start()
+
     #e: 초기 설정
 
     clock = pygame.time.Clock()
