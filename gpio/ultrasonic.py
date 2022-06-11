@@ -133,6 +133,8 @@ class Ultrasonic(threading.Thread):
         while self.isEnd == False and GPIO != None:
             self.distance = self.controlUltrasonic()
 
+        print("end ultra")
+
             
     def endGame(self) :
         self.isEnd = True
