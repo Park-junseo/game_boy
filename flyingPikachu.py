@@ -105,12 +105,13 @@ def runGame():
 
         # s:울트라센서
 
-        distance = (ultra.distance -10)*10
+        if ultra != None :
+            distance = (ultra.distance -10)*10
 
-        if distance <0 :
-            y = 0
-        elif y > pad_height - aircraft_height:
-            y = pad_height - aircraft_height
+            if distance <0 :
+                y = 0
+            elif y > pad_height - aircraft_height:
+                y = pad_height - aircraft_height
 
 
         # e:울트라센서
@@ -194,7 +195,6 @@ def runGame():
         clock.tick(60)
     
     pygame.quit()
-    quit()
 
 def initGame():
     global gamepad, aircraft, clock, background1, background2, ultra
@@ -224,14 +224,23 @@ def initGame():
         ultra.daemon = True
         ultra.start()
 
-    importModule = runGame()
-    ultra.endGame()
 
-    if importModule != None :
-        if importModule in sys.modules:
-            importlib.reload(sys.modules[importModule])
-        else:
-            module = __import__(importModule)
+    while True :
+        importModule = runGame()
+
+        if importModule == None :
+            break
+        elif importModule == "flyingPikachu":
+            continue
+        else :
+            if ultra != None:
+                ultra.endGame()
+            if importModule in sys.modules:
+                importlib.reload(sys.modules[importModule])
+            else:
+                module = __import__(importModule)
+
+            break
 
     # while True:
     #     importModule = runGame()
@@ -248,4 +257,5 @@ def initGame():
 if __name__ == '__main__':
     initGame()
 else :
+    print("flyingPikachu")
     initGame()
