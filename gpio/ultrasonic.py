@@ -59,9 +59,11 @@ class Ultrasonic(threading.Thread):
             GPIO.setup(cls.instance.ECHO_PIN, GPIO.IN)
 
             cls.instance.isStart = False
-            cls.instance.isEnd = False
         else:
             print('recycle')
+
+        cls.instance.isEnd = False
+        
         return cls.instance
 
 
