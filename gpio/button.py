@@ -25,6 +25,8 @@ class GPIOKey(threading.Thread):
         GPIO.setup(self.CON_PIN,GPIO.IN)
         GPIO.setup(self.X_PIN,GPIO.IN)
 
+        self.isStart = False
+
         print('init!')
 
     def __new__(cls):
@@ -36,6 +38,11 @@ class GPIOKey(threading.Thread):
         return cls.instance
 
     def run(self):
+        if self.isStart :
+            return
+        else :
+            self.isStart = True
+
         while True:
             if GPIO.input(self.UP_PIN) == 0:
                 self.UP = self.UP + 1
