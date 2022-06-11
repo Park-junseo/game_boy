@@ -92,7 +92,7 @@ def runGame():
 
         # s:울트라센서
 
-        distance = (ultra.controlUltrasonic() -10)*10
+        distance = (ultra.distance -10)*10
 
         if distance <0 :
             y = 0
@@ -232,6 +232,8 @@ def initGame():
     clock = pygame.time.Clock()
 
     ultra = Ultrasonic()
+    ultra.daemon = True
+    ultra.run()
 
     runGame()
 

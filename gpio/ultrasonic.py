@@ -39,17 +39,25 @@ if __name__ == '__main__':
 	main()
 """
 
-class Ultrasonic:
+class Ultrasonic(threading.Thread):
 
     def __init__(self) :
         super().__init__()
 
-        self.TRIG_PIN = 20
-        self.ECHO_PIN = 21
+    def __new__(cls):
+        if not hasattr(cls,'instance'):
+            print('create')
+            cls.instance.TRIG_PIN = 20
+            cls.instance.ECHO_PIN = 21
 
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.TRIG_PIN, GPIO.OUT)
-        GPIO.setup(self.ECHO_PIN, GPIO.IN)
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setup(cls.instance.TRIG_PIN, GPIO.OUT)
+            GPIO.setup(cls.instance.ECHO_PIN, GPIO.IN)
+
+            cls.instance.isStart = False
+        else:
+            print('recycle')
+        return cls.instance
 
 
     def controlUltrasonic(self):
@@ -67,5 +75,20 @@ class Ultrasonic:
         distance = pulse_duration * 17000
         distance = round(distance, 2)
         return distance
+
+    def run(self) :
+        if self.isStart :
+            return
+        else :
+            self.isStart = True
+            print("start!")
+        
+        try:
+            while True:
+                self.distance = self.controlUltrasonic()
+        except KeyboardInterrupt:
+            GPIO.cleanup()
+
+            
 
 
