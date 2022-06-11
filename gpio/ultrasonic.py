@@ -1,4 +1,7 @@
-import RPi.GPIO as GPIO
+try: 
+    import RPi.GPIO as GPIO
+except:
+    GPIO = None
 import time
 
 import threading
@@ -54,11 +57,16 @@ class Ultrasonic(threading.Thread):
 
             cls.instance.distance = 0.0
 
+            cls.instance.isStart = False
+
             # GPIO.setmode(GPIO.BCM)
+            if GPIO == None :
+                return None
+
             GPIO.setup(cls.instance.TRIG_PIN, GPIO.OUT)
             GPIO.setup(cls.instance.ECHO_PIN, GPIO.IN)
 
-            cls.instance.isStart = False
+            
         else:
             print('recycle')
 
@@ -95,7 +103,7 @@ class Ultrasonic(threading.Thread):
             self.isStart = True
             print("start!")
         
-        while self.isEnd == False:
+        while self.isEnd == False & GPIO != None:
             self.distance = self.controlUltrasonic()
 
             

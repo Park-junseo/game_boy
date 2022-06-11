@@ -5,6 +5,7 @@ from pygame.surface import Surface
 
 from gpio.button import *
 
+import sys
 import importlib
 
 def drawMenuBg():
@@ -93,19 +94,20 @@ def runGame():
             #e: 키 조작
 
         #s: gpio 키조작
-        if gkey.getCurPressedKey("UP") :
-            menuKey = getMenuKey(-1)
-        elif gkey.getCurPressedKey("DOWN") :
-            menuKey = getMenuKey(1)
-        elif gkey.getCurPressedKey("X") :
-            crashed = True
-        elif gkey.getCurPressedKey("CON") :
-            if getMenuList(menuKey) == "Back":
-                return "gameboy_menu"
-            elif getMenuList(menuKey) == "FLYING PIKACHU":
-                return "flyingPikachu"
-            elif getMenuList(menuKey) == "PINGPONG" :
-                return "pingPong"
+        if gkey != None :
+            if gkey.getCurPressedKey("UP") :
+                menuKey = getMenuKey(-1)
+            elif gkey.getCurPressedKey("DOWN") :
+                menuKey = getMenuKey(1)
+            elif gkey.getCurPressedKey("X") :
+                crashed = True
+            elif gkey.getCurPressedKey("CON") :
+                if getMenuList(menuKey) == "Back":
+                    return "gameboy_menu"
+                elif getMenuList(menuKey) == "FLYING PIKACHU":
+                    return "flyingPikachu"
+                elif getMenuList(menuKey) == "PINGPONG" :
+                    return "pingPong"
         #e: gpio 키조작
 
         #s: 화면 표시
@@ -131,8 +133,9 @@ def initGame():
 
 
     gkey = GPIOKey()
-    gkey.daemon = True
-    gkey.start()
+    if gkey != None:
+        gkey.daemon = True
+        gkey.start()
 
     #e: 초기 설정
 
@@ -140,18 +143,11 @@ def initGame():
     
     importModule = runGame()
 
-
-    if importModule == "gameboy_menu" :
-        import gameboy_menu
-        # importlib.reload(gameboy_menu)
-    elif importModule == "flyingPikachu" :
-        import flyingPikachu
-        # importlib.reload(flyingPikachu)
-    elif importModule == "pingPong" :
-        import pingPong
-        # importlib.reload(pingPong)
-
-print(__name__)
+    if importModule != None :
+        if importModule in sys.modules:
+            importlib.reload(sys.modules[importModule])
+        else:
+            module = __import__(importModule)
 
 # 여기에서 실행 시 gameboy_menu로 실행
 if __name__ == '__main__':

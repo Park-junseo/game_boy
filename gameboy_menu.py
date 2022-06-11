@@ -7,6 +7,7 @@ from gpio.button import *
 
 from env import *
 
+import sys
 import importlib
 
 #배경화면 그리기
@@ -101,17 +102,18 @@ def runGame():
             #e: 키 조작
 
         #s: gpio 키조작
-        if gkey.getCurPressedKey("UP") :
-            menuKey = getMenuKey(-1)
-        elif gkey.getCurPressedKey("DOWN") :
-            menuKey = getMenuKey(1)
-        elif gkey.getCurPressedKey("X") :
-            crashed = True
-        elif gkey.getCurPressedKey("CON") :
-            if getMenuList(menuKey) == "SELECT GAME":
-                return "select_menu"
-            elif getMenuList(menuKey) == "EXIT":
+        if gkey != None:
+            if gkey.getCurPressedKey("UP") :
+                menuKey = getMenuKey(-1)
+            elif gkey.getCurPressedKey("DOWN") :
+                menuKey = getMenuKey(1)
+            elif gkey.getCurPressedKey("X") :
                 crashed = True
+            elif gkey.getCurPressedKey("CON") :
+                if getMenuList(menuKey) == "SELECT GAME":
+                    return "select_menu"
+                elif getMenuList(menuKey) == "EXIT":
+                    crashed = True
         #e: gpio 키조작
 
         #s: 화면 표시
@@ -136,23 +138,23 @@ def initGame():
     menuBg = pygame.image.load(os.path.join(rpImages, rsMainBgSrc))#pygame.image.load(mainBgSrc).convert_alpha()
     menuTitle = pygame.image.load(os.path.join(rpImages, rpmainTitleSrc)) #pygame.image.load(mainTitleSrc).convert_alpha()
     initMenuList()
-
+ 
     gkey = GPIOKey()
-    gkey.daemon = True
-    gkey.start()
+    if gkey != None:
+        gkey.daemon = True
+        gkey.start()
 
     #e: 초기 설정
 
     clock = pygame.time.Clock()
     importModule = runGame()
 
-    if importModule == "select_menu" :
-        import select_menu
-        # importlib.reload(select_menu)
 
-#jaejun
-print(__name__)
-# if __name__ == '__main__':
-#     initGame()
+    if importModule != None :
+        if importModule in sys.modules:
+            importlib.reload(sys.modules[importModule])
+        else:
+            module = __import__(importModule)
+
 print("gameboy_menu")
 initGame()

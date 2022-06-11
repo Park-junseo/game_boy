@@ -1,4 +1,7 @@
-import RPi.GPIO as GPIO
+try: 
+    import RPi.GPIO as GPIO
+except:
+    GPIO = None
 from time import sleep
 import threading
 
@@ -6,8 +9,6 @@ class GPIOKey(threading.Thread):
 
     def __init__(self) :
         super().__init__()
-
-        print('init!')
 
     def __new__(cls):
         if not hasattr(cls,'instance'):
@@ -26,13 +27,16 @@ class GPIOKey(threading.Thread):
 
             cls.instance.curPressedKey = False
 
+            cls.instance.isStart = False
+
+            if GPIO == None :
+                return None
+
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(cls.instance.UP_PIN,GPIO.IN)
             GPIO.setup(cls.instance.DOWN_PIN,GPIO.IN)
             GPIO.setup(cls.instance.CON_PIN,GPIO.IN)
             GPIO.setup(cls.instance.X_PIN,GPIO.IN)
-
-            cls.instance.isStart = False
         else:
             print('recycle')
         return cls.instance
@@ -44,7 +48,7 @@ class GPIOKey(threading.Thread):
             self.isStart = True
             print("start!")
 
-        while True:
+        while GPIO != None:
             if GPIO.input(self.UP_PIN) == 0:
                 self.UP = self.UP + 1
             else :
@@ -88,8 +92,9 @@ class GPIOKey(threading.Thread):
 
 def testButton():
     t = GPIOKey()
-    t.daemon = True
-    t.start()
+    if t != None :
+        t.daemon = True
+        t.start()
     try:
         while True:
             if t.getCurPressedKey("UP") :

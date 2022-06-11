@@ -7,6 +7,9 @@ import pygame
 import random
 from time import sleep
 
+import sys
+import importlib
+
 from gpio.ultrasonic import *
 
 WHITE = (255,255,255)
@@ -51,7 +54,7 @@ def crash():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_LEFT : 
-                    return "replay"
+                    return "flyingPikachu"
                 elif event.key == pygame.K_RIGHT :
                     return "select_menu"
         
@@ -217,19 +220,29 @@ def initGame():
     clock = pygame.time.Clock()
 
     ultra = Ultrasonic()
-    ultra.daemon = True
-    ultra.start()
+    if ultra != None :
+        ultra.daemon = True
+        ultra.start()
 
-    while True:
-        importModule = runGame()
-        if importModule == "replay" :
-            continue
-        elif importModule == "select_menu" :
-            import select_menu
-            ultra.endGame()
-            break
-        else :
-            break
+    importModule = runGame()
+    ultra.endGame()
+
+    if importModule != None :
+        if importModule in sys.modules:
+            importlib.reload(sys.modules[importModule])
+        else:
+            module = __import__(importModule)
+
+    # while True:
+    #     importModule = runGame()
+    #     if importModule == "replay" :
+    #         continue
+    #     elif importModule == "select_menu" :
+    #         import select_menu
+    #         ultra.endGame()
+    #         break
+    #     else :
+    #         break
     
 
 if __name__ == '__main__':
