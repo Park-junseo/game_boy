@@ -124,9 +124,9 @@ def runGame():
         if ultra != None :
             distance = (ultra.distance -10.0)*10.0
 
-            if distance <0 :
+            if distance <0.0 :
                 y = 0.0
-            elif y > pad_height - aircraft_height:
+            elif distance > float(pad_height - aircraft_height):
                 y = float(pad_height - aircraft_height)
             else :
                 y = distance
