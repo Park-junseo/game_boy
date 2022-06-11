@@ -92,9 +92,7 @@ def runGame():
                     crashed = True
                 elif event.key == pygame.K_SPACE:
                     if getMenuList(menuKey) == "SELECT GAME":
-                        import select_menu
-                        select_menu.initGame()
-                        return
+                        return "select_menu"
                     elif getMenuList(menuKey) == "EXIT":
                         crashed = True
 
