@@ -42,6 +42,7 @@ class GPIOKey(threading.Thread):
             return
         else :
             self.isStart = True
+            print("start!")
 
         while True:
             if GPIO.input(self.UP_PIN) == 0:
