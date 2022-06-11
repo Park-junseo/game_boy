@@ -122,12 +122,12 @@ def runGame():
 
         # s:울트라센서
         if ultra != None :
-            distance = int((ultra.distance -10)*10)
+            distance = (ultra.distance -10.0)*10.0
 
             if distance <0 :
-                y = 0
+                y = 0.0
             elif y > pad_height - aircraft_height:
-                y = pad_height - aircraft_height
+                y = float(pad_height - aircraft_height)
             else :
                 y = distance
 
