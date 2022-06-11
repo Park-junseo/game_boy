@@ -63,7 +63,7 @@ class Ultrasonic(threading.Thread):
             print('recycle')
 
         cls.instance.isEnd = False
-        
+
         return cls.instance
 
 
@@ -96,7 +96,7 @@ class Ultrasonic(threading.Thread):
             print("start!")
         
 
-        while self.isEnd == False:
+        while True:
             self.distance = self.controlUltrasonic()
 
             
