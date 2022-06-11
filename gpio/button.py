@@ -31,6 +31,8 @@ class GPIOKey(threading.Thread):
         if not hasattr(cls,'instance'):
             print('create')
             cls.instance = super(GPIOKey, cls).__new__(cls)
+            cls.instance.daemon = True
+            cls.start()
         else:
             print('recycle')
         return cls.instance
