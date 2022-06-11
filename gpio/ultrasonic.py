@@ -52,6 +52,8 @@ class Ultrasonic(threading.Thread):
             cls.instance.TRIG_PIN = 20
             cls.instance.ECHO_PIN = 21
 
+            cls.instance.distance = 0.0
+
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(cls.instance.TRIG_PIN, GPIO.OUT)
             GPIO.setup(cls.instance.ECHO_PIN, GPIO.IN)
@@ -85,7 +87,6 @@ class Ultrasonic(threading.Thread):
             self.isStart = True
             print("start!")
         
-        self.distance = 0.0
 
         try:
             while True:
