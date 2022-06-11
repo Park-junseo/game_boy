@@ -84,6 +84,8 @@ def runGame():
     random.shuffle(fires)
     fire = fires[0]
 
+    max_y = float(pad_height - aircraft_height)
+
     replayGame = False
     crashed = False
     while not crashed:
@@ -126,10 +128,12 @@ def runGame():
 
             if distance <0.0 :
                 y = 0.0
-            elif distance > float(pad_height - aircraft_height):
-                y = float(pad_height - aircraft_height)
+            elif distance > max_y:
+                y = max_y
             else :
                 y = distance
+            
+            y = max_y - distance
 
             # print("distance:" + str(y))
         # e:울트라센서
