@@ -128,6 +128,8 @@ def runGame():
                 y = 0
             elif y > pad_height - aircraft_height:
                 y = pad_height - aircraft_height
+            else :
+                y = distance
 
             # print("distance" + str(y))
         # e:울트라센서
