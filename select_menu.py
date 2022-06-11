@@ -16,7 +16,7 @@ def initMenuList():
     menuListFont = pygame.font.SysFont("arial",40, True)
     menuList = [
         "FLYING PIKACHU",
-        "NEW GAME",
+        "PINGPONG",
         "Back"
     ]
 
@@ -88,6 +88,10 @@ def runGame():
                     elif getMenuList(menuKey) == "FLYING PIKACHU":
                         import flyingPikachu
                         flyingPikachu.initGame()
+                        return
+                    elif getMenuList(menuKey) == "PINGPONG" :
+                        import pingPong
+                        pingPong.main()
                         return
 
             #e: 키 조작
