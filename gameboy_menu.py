@@ -104,25 +104,25 @@ def runGame():
 
             #e: 키 조작
 
-            #s: gpio 키조작
-            if gkey.getCurPressedKey("UP") :
-                print("UP")
-                menuKey = getMenuKey(-1)
-            elif gkey.getCurPressedKey("DOWN") :
-                print("DOWN")
-                menuKey = getMenuKey(1)
-            elif gkey.getCurPressedKey("X") :
-                print("X")
+        #s: gpio 키조작
+        if gkey.getCurPressedKey("UP") :
+            print("UP")
+            menuKey = getMenuKey(-1)
+        elif gkey.getCurPressedKey("DOWN") :
+            print("DOWN")
+            menuKey = getMenuKey(1)
+        elif gkey.getCurPressedKey("X") :
+            print("X")
+            crashed = True
+        elif gkey.getCurPressedKey("CON") :
+            print("CON")
+            if getMenuList(menuKey) == "SELECT GAME":
+                import select_menu
+                select_menu.initGame()
+                return
+            elif getMenuList(menuKey) == "EXIT":
                 crashed = True
-            elif gkey.getCurPressedKey("CON") :
-                print("CON")
-                if getMenuList(menuKey) == "SELECT GAME":
-                    import select_menu
-                    select_menu.initGame()
-                    return
-                elif getMenuList(menuKey) == "EXIT":
-                    crashed = True
-            #e: gpio 키조작
+        #e: gpio 키조작
 
         #s: 화면 표시
         gamepad.fill(WHITE)
