@@ -25,6 +25,8 @@ class GPIOKey(threading.Thread):
         GPIO.setup(self.CON_PIN,GPIO.IN)
         GPIO.setup(self.X_PIN,GPIO.IN)
 
+        print('init!')
+
     def __new__(cls):
         if not hasattr(cls,'instance'):
             print('create')
