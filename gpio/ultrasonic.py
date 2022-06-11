@@ -118,8 +118,6 @@ class Ultrasonic(threading.Thread):
         distance = pulse_duration * 17000
         distance = round(distance, 2)
 
-        print(distance)
-
         return distance
 
     def run(self) :
