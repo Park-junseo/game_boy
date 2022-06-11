@@ -89,6 +89,9 @@ class GPIOKey(threading.Thread):
     def cleanupGPIO(cls) :
         GPIO.cleanup()
     
+def cleanupGPIO():
+    if GPIO != None:
+        GPIO.cleanup()
 
 def testButton():
     t = GPIOKey()

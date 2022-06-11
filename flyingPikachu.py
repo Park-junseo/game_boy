@@ -11,6 +11,7 @@ import sys
 import importlib
 
 from gpio.ultrasonic import *
+from gpio.button import *
 
 WHITE = (255,255,255)
 RED = (255, 0, 0)
@@ -47,7 +48,7 @@ def dispMessage(text):
 
 # 충돌 return 다음 액션값
 def crash():
-    global gamepad, ultra
+    global gamepad, ultra, gkey
     dispMessage('<- to retry, -> to quit')
     
     while True: 
@@ -57,7 +58,12 @@ def crash():
                     return "flyingPikachu"
                 elif event.key == pygame.K_RIGHT :
                     return "select_menu"
-        
+
+        if gkey != None:
+            if gkey.getCurPressedKey("UP") :
+                return "flyingPikachu"
+            elif gkey.getCurPressedKey("DOWN") :
+                return "select_menu"
         clock.tick(60)
 
 def drawObject(obj, x, y):
@@ -200,9 +206,10 @@ def runGame():
         clock.tick(60)
     
     pygame.quit()
+    cleanupGPIO()
 
 def initGame():
-    global gamepad, aircraft, clock, background1, background2, ultra
+    global gamepad, aircraft, clock, background1, background2, ultra, gkey
     global ball, fires
 
     fires = []
@@ -223,6 +230,11 @@ def initGame():
         fires.append((i+2, None))
 
     clock = pygame.time.Clock()
+
+    gkey = GPIOKey()
+    if gkey != None:
+        gkey.daemon = True
+        gkey.start()
 
     ultra = Ultrasonic()
     if ultra != None :

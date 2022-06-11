@@ -120,6 +120,7 @@ def runGame():
         clock.tick(60)
 
     pygame.quit()
+    cleanupGPIO()
 
 
 def initGame():

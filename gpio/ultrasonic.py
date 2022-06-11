@@ -147,3 +147,7 @@ class Ultrasonic(threading.Thread):
     def endGame(self) :
         self.isEnd = True
 
+def cleanupGPIO():
+    if GPIO != None:
+        GPIO.cleanup()
+

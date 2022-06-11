@@ -127,6 +127,7 @@ def runGame():
         clock.tick(60)
 
     pygame.quit()
+    cleanupGPIO()
 
 def initGame():
     global gamepad, clock, menuBg, menuTitle, gkey
