@@ -62,7 +62,7 @@ def getMenuList(index):
     return menuList[index]
 
 def runGame():
-    global gamepad, clock, menuKey
+    global gamepad, clock, menuKey, gkey
 
     
     crashed =False
@@ -89,14 +89,14 @@ def runGame():
             #e: 키 조작
 
         #s: gpio 키조작
-        if GPIOKey.gpioKey != None :
-            if GPIOKey.gpioKey.getCurPressedKey("UP") :
+        if gkey != None :
+            if gkey.getCurPressedKey("UP") :
                 menuKey = getMenuKey(-1)
-            elif GPIOKey.gpioKey.getCurPressedKey("DOWN") :
+            elif gkey.getCurPressedKey("DOWN") :
                 menuKey = getMenuKey(1)
-            elif GPIOKey.gpioKey.getCurPressedKey("X") :
+            elif gkey.getCurPressedKey("X") :
                 crashed = True
-            elif GPIOKey.gpioKey.getCurPressedKey("CON") :
+            elif gkey.getCurPressedKey("CON") :
                 if getMenuList(menuKey) == "Back":
                     import gameboy_menu
                     gameboy_menu.initGame()
@@ -115,7 +115,7 @@ def runGame():
     pygame.quit()
 
 def initGame():
-    global gamepad, clock, menuBg
+    global gamepad, clock, menuBg, gkey
 
     #s: 초기 설정
     pygame.init()
@@ -125,7 +125,7 @@ def initGame():
 
     if(GPIOKey.gpioKey == None):
         print("unset gpio!")
-    GPIOKey.start()
+    gkey = GPIOKey.start()
     if(GPIOKey.gpioKey != None):
         print("set gpio!")
     #e: 초기 설정

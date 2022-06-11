@@ -101,14 +101,14 @@ def runGame():
             #e: 키 조작
 
         #s: gpio 키조작
-        if GPIOKey.gpioKey != None :
-            if GPIOKey.gpioKey.getCurPressedKey("UP") :
+        if gkey != None :
+            if gkey.getCurPressedKey("UP") :
                 menuKey = getMenuKey(-1)
-            elif GPIOKey.gpioKey.getCurPressedKey("DOWN") :
+            elif gkey.getCurPressedKey("DOWN") :
                 menuKey = getMenuKey(1)
-            elif GPIOKey.gpioKey.getCurPressedKey("X") :
+            elif gkey.getCurPressedKey("X") :
                 crashed = True
-            elif GPIOKey.gpioKey.getCurPressedKey("CON") :
+            elif gkey.getCurPressedKey("CON") :
                 if getMenuList(menuKey) == "SELECT GAME":
                     import select_menu
                     select_menu.initGame()
@@ -144,7 +144,7 @@ def initGame():
 
     if(GPIOKey.gpioKey == None):
         print("unset gpio!")
-    GPIOKey.start()
+    gkey = GPIOKey.start()
     if(GPIOKey.gpioKey != None):
         print("set gpio!")
 
