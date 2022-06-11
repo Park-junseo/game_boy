@@ -14,7 +14,7 @@ def drawMenuBg():
 def drawMenuTitle(x:float,y:float):
     global gamepad, menuTitle
     gamepad.blit(menuTitle,(x,y))
-
+ 
 #타이틀 크기 설정 후, 위치 반납
 def initMenuTitle():
     global menuTitle
