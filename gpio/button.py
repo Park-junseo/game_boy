@@ -69,12 +69,12 @@ class GPIOKey(threading.Thread):
         GPIOKey.gpioKey = None
         GPIO.cleanup()
     
-    @staticmethod
-    def start() :
-        if GPIOKey.gpioKey == None:
-            GPIOKey.gpioKey = GPIOKey()
-            GPIOKey.gpioKey.daemon = True
-            GPIOKey.gpioKey.start()
+    @classmethod
+    def start(cls) :
+        if cls.gpioKey == None:
+            cls.gpioKey = GPIOKey()
+            cls.gpioKey.daemon = True
+            cls.gpioKey.start()
 
 def testButton():
     t = GPIOKey()
