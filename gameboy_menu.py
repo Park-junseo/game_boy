@@ -125,6 +125,8 @@ def runGame():
         pygame.display.update()
         #e: 화면 표시
 
+        print(GPIOKey.gpioKey.curPressedKey)
+
         clock.tick(60)
 
     pygame.quit()
