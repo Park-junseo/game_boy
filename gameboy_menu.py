@@ -109,9 +109,7 @@ def runGame():
             crashed = True
         elif gkey.getCurPressedKey("CON") :
             if getMenuList(menuKey) == "SELECT GAME":
-                import select_menu
-                select_menu.initGame()
-                return
+                return "select_menu"
             elif getMenuList(menuKey) == "EXIT":
                 crashed = True
         #e: gpio 키조작
@@ -146,9 +144,13 @@ def initGame():
     #e: 초기 설정
 
     clock = pygame.time.Clock()
-    runGame()
+    importModule = runGame()
+
+    if importModule == "select_menu" :
+        import select_menu
 
 #jaejun
 
-if __name__ == '__main__':
-    initGame()
+# if __name__ == '__main__':
+#     initGame()
+initGame()

@@ -105,13 +105,13 @@ def runGame():
             crashed = True
         elif gkey.getCurPressedKey("CON") :
             if getMenuList(menuKey) == "Back":
-                import gameboy_menu
-                gameboy_menu.initGame()
-                return
+                # import gameboy_menu
+                # gameboy_menu.initGame()
+                return "gameboy_menu"
             elif getMenuList(menuKey) == "FLYING PIKACHU":
-                import flyingPikachu
-                flyingPikachu.initGame()
-                return
+                # import flyingPikachu
+                # flyingPikachu.initGame()
+                return "flyingPikachu"
         #e: gpio 키조작
 
         #s: 화면 표시
@@ -142,9 +142,17 @@ def initGame():
     #e: 초기 설정
 
     clock = pygame.time.Clock()
-    runGame()
+    
+    importModule = runGame()
+
+    if importModule == "gameboy_menu" :
+        import gameboy_menu
+    elif importModule == "flyingPikachu" :
+        import flyingPikachu
 
 # 여기에서 실행 시 gameboy_menu로 실행
 if __name__ == '__main__':
     import gameboy_menu
     gameboy_menu.initGame()
+else :
+    initGame()
