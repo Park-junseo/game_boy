@@ -89,18 +89,17 @@ def runGame():
             #e: 키 조작
 
         #s: gpio 키조작
-        if gkey != None :
-            if gkey.getCurPressedKey("UP") :
-                menuKey = getMenuKey(-1)
-            elif gkey.getCurPressedKey("DOWN") :
-                menuKey = getMenuKey(1)
-            elif gkey.getCurPressedKey("X") :
-                crashed = True
-            elif gkey.getCurPressedKey("CON") :
-                if getMenuList(menuKey) == "Back":
-                    import gameboy_menu
-                    gameboy_menu.initGame()
-                    return
+        if gkey.getCurPressedKey("UP") :
+            menuKey = getMenuKey(-1)
+        elif gkey.getCurPressedKey("DOWN") :
+            menuKey = getMenuKey(1)
+        elif gkey.getCurPressedKey("X") :
+            crashed = True
+        elif gkey.getCurPressedKey("CON") :
+            if getMenuList(menuKey) == "Back":
+                import gameboy_menu
+                gameboy_menu.initGame()
+                return
         #e: gpio 키조작
 
         #s: 화면 표시

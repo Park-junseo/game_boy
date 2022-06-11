@@ -101,20 +101,19 @@ def runGame():
             #e: 키 조작
 
         #s: gpio 키조작
-        if gkey != None :
-            if gkey.getCurPressedKey("UP") :
-                menuKey = getMenuKey(-1)
-            elif gkey.getCurPressedKey("DOWN") :
-                menuKey = getMenuKey(1)
-            elif gkey.getCurPressedKey("X") :
+        if gkey.getCurPressedKey("UP") :
+            menuKey = getMenuKey(-1)
+        elif gkey.getCurPressedKey("DOWN") :
+            menuKey = getMenuKey(1)
+        elif gkey.getCurPressedKey("X") :
+            crashed = True
+        elif gkey.getCurPressedKey("CON") :
+            if getMenuList(menuKey) == "SELECT GAME":
+                import select_menu
+                select_menu.initGame()
+                return
+            elif getMenuList(menuKey) == "EXIT":
                 crashed = True
-            elif gkey.getCurPressedKey("CON") :
-                if getMenuList(menuKey) == "SELECT GAME":
-                    import select_menu
-                    select_menu.initGame()
-                    return
-                elif getMenuList(menuKey) == "EXIT":
-                    crashed = True
         #e: gpio 키조작
 
         #s: 화면 표시
