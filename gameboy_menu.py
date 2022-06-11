@@ -125,5 +125,7 @@ def initGame():
     clock = pygame.time.Clock()
     runGame()
 
+#jaejun
+
 if __name__ == '__main__':
     initGame()
