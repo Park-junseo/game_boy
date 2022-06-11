@@ -48,7 +48,7 @@ class GPIOKey(threading.Thread):
             
             sleep(0.1)
     
-    def getCurrentKey(self, key) :
+    def getCurPressedKey(self, key) :
         if(self.curPressedKey == key):
             self.curPressedKey = False
             return True
@@ -59,8 +59,12 @@ def testButton():
     t.start()
     try:
         while True:
-            if t.curPressedKey :
-                print(t.curPressedKey)
+            if t.getCurPressedKey("UP") :
+                print("UP")
+            elif t.getCurPressedKey("DOWN") :
+                print("DOWN")
+            elif t.getCurPressedKey("CON") :
+                print("CON")
             sleep(1.0)
     except KeyboardInterrupt:
         GPIO.cleanup()
