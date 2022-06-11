@@ -141,8 +141,7 @@ def initGame():
 
     gkey = GPIOKey()
     gkey.daemon = True
-    if gkey.is_alive == False:
-        gkey.start()
+    gkey.start()
 
     #e: 초기 설정
 
