@@ -117,15 +117,18 @@ class Ultrasonic(threading.Thread):
         pulse_duration = pulse_end - pulse_start
         distance = pulse_duration * 17000
         distance = round(distance, 2)
+        
+        print(distance)
 
         return distance
 
     def run(self) :
         if self.isStart :
+            print("stop ultra!")
             return
         else :
             self.isStart = True
-            print("start!")
+            print("start ultra!")
         
         while self.isEnd == False and GPIO != None:
             self.distance = self.controlUltrasonic()
