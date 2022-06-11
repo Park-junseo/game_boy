@@ -3,7 +3,7 @@ __author__ = 'psbsanno@gmail.com'
 import os
 import pygame
 
-from gpio.button import GPIOKey
+import gpio.button as button
 
 from env import *
 
@@ -139,7 +139,7 @@ def initGame():
     menuTitle = pygame.image.load(os.path.join(rpImages, rpmainTitleSrc)) #pygame.image.load(mainTitleSrc).convert_alpha()
     initMenuList()
 
-    gkey = GPIOKey()
+    gkey = button.GPIOKey()
     gkey.daemon = True
     gkey.start()
 
