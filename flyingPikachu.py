@@ -220,22 +220,23 @@ def initGame():
 
     clock = pygame.time.Clock()
 
-    ultra = Ultrasonic()
-    if ultra != None :
-        ultra.daemon = True
-        ultra.start()
-
 
     while True :
+        ultra = Ultrasonic()
+        if ultra != None :
+            ultra.daemon = True
+            ultra.start()
+
         importModule = runGame()
+
+        if ultra != None:
+            ultra.endGame()
 
         if importModule == None :
             break
         elif importModule == "flyingPikachu":
             continue
         else :
-            if ultra != None:
-                ultra.endGame()
             if importModule in sys.modules:
                 importlib.reload(sys.modules[importModule])
             else:
