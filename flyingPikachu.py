@@ -42,7 +42,7 @@ def dispMessage(text):
     #runGame()
 
 
-# 충돌 replay 시 return True
+# 충돌 return 다음 액션값
 def crash():
     global gamepad, ultra
     dispMessage('<- to retry, -> to quit')
@@ -51,9 +51,9 @@ def crash():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_LEFT : 
-                    return True
+                    return "replay"
                 elif event.key == pygame.K_RIGHT :
-                    return False
+                    return "select_menu"
         
         clock.tick(60)
 
@@ -162,12 +162,7 @@ def runGame():
         if x + aircraft_width > ball_x:
             if(y > ball_y and y < ball_y + ball_height) or \
             (y + aircraft_height > ball_y and y + aircraft_height < ball_y + ball_height):
-                if crash(): 
-                    return True
-                else :
-                    import select_menu
-                    select_menu.initGame()
-                    return
+                return crash()
 
         # 충돌 (피카츄 -> 파이어볼)
         if fire[1] != None :
@@ -181,12 +176,7 @@ def runGame():
             if x + aircraft_width > fire_x :
                 if (y > fire_y and y < fire_y + fireball_height) or \
                 (y + aircraft_height > fire_y and y + aircraft_height < fire_y + fireball_height) :
-                    if crash(): 
-                        return True
-                    else :
-                        import select_menu
-                        select_menu.initGame()
-                        return
+                    return crash()
         #-----------------
 
 
@@ -230,9 +220,16 @@ def initGame():
     ultra.daemon = True
     ultra.start()
 
-    while runGame() == True:
-        sleep(0.1)
-    ultra.endGame()
+    while True:
+        importModule = runGame()
+        if importModule == "replay" :
+            continue
+        elif importModule == "select_menu" :
+            import select_menu
+            ultra.endGame()
+            break
+        else :
+            break
     
 
 if __name__ == '__main__':
