@@ -7,32 +7,32 @@ class GPIOKey(threading.Thread):
     def __init__(self) :
         super().__init__()
 
-        self.UP_PIN = 15
-        self.DOWN_PIN = 16
-        self.CON_PIN = 17
-        self.X_PIN = 18
-
-        self.UP=0
-        self.DOWN=0
-        self.CON=0
-        self.X =0
-
-        self.curPressedKey = False
-
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.UP_PIN,GPIO.IN)
-        GPIO.setup(self.DOWN_PIN,GPIO.IN)
-        GPIO.setup(self.CON_PIN,GPIO.IN)
-        GPIO.setup(self.X_PIN,GPIO.IN)
-
-        self.isStart = False
-
         print('init!')
 
     def __new__(cls):
         if not hasattr(cls,'instance'):
             print('create')
             cls.instance = super(GPIOKey, cls).__new__(cls)
+
+            cls.instance.UP_PIN = 15
+            cls.instance.DOWN_PIN = 16
+            cls.instance.CON_PIN = 17
+            cls.instance.X_PIN = 18
+
+            cls.instance.UP=0
+            cls.instance.DOWN=0
+            cls.instance.CON=0
+            cls.instance.X =0
+
+            cls.instance.curPressedKey = False
+
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setup(cls.instance.UP_PIN,GPIO.IN)
+            GPIO.setup(cls.instance.DOWN_PIN,GPIO.IN)
+            GPIO.setup(cls.instance.CON_PIN,GPIO.IN)
+            GPIO.setup(cls.instance.X_PIN,GPIO.IN)
+
+            cls.instance.isStart = False
         else:
             print('recycle')
         return cls.instance
