@@ -74,6 +74,10 @@ def runGame():
     global gamepad, clock, menuTitle, menuKey, gkey
 
     (titleX, titleY) = initMenuTitle()
+
+    gkey = button.GPIOKey()
+    gkey.daemon = True
+    gkey.start()
     
     crashed =False
     while not crashed:
@@ -129,7 +133,7 @@ def runGame():
     pygame.quit()
 
 def initGame():
-    global gamepad, clock, menuBg, menuTitle, gkey
+    global gamepad, clock, menuBg, menuTitle
 
     #s: 초기 설정
     pygame.init()
@@ -138,10 +142,6 @@ def initGame():
     menuBg = pygame.image.load(os.path.join(rpImages, rsMainBgSrc))#pygame.image.load(mainBgSrc).convert_alpha()
     menuTitle = pygame.image.load(os.path.join(rpImages, rpmainTitleSrc)) #pygame.image.load(mainTitleSrc).convert_alpha()
     initMenuList()
-
-    gkey = button.GPIOKey()
-    gkey.daemon = True
-    gkey.start()
 
     #e: 초기 설정
 
