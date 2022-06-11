@@ -123,7 +123,11 @@ def initGame():
     menuBg = pygame.image.load(os.path.join(rpImages, rsMainBgSrc))#pygame.image.load(mainBgSrc).convert_alpha()
     initMenuList()
 
+    if(GPIOKey.gpioKey == None):
+        print("unset gpio!")
     GPIOKey.start()
+    if(GPIOKey.gpioKey != None):
+        print("set gpio!")
     #e: 초기 설정
 
     clock = pygame.time.Clock()
