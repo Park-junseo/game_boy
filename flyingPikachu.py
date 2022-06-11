@@ -1,5 +1,6 @@
 __author__ = 'danny12823125@gmail.com'
 
+from cProfile import run
 from webbrowser import BackgroundBrowser
 
 import pygame
@@ -44,7 +45,6 @@ def dispMessage(text):
 # 충돌 replay 시 return True
 def crash():
     global gamepad, ultra
-    ultra.endGame()
     dispMessage('<- to retry, -> to quit')
     
     while True: 
@@ -163,9 +163,7 @@ def runGame():
             if(y > ball_y and y < ball_y + ball_height) or \
             (y + aircraft_height > ball_y and y + aircraft_height < ball_y + ball_height):
                 if crash(): 
-                    import flyingPikachu
-                    flyingPikachu.initGame()
-                    return
+                    return True
                 else :
                     import select_menu
                     select_menu.initGame()
@@ -184,9 +182,7 @@ def runGame():
                 if (y > fire_y and y < fire_y + fireball_height) or \
                 (y + aircraft_height > fire_y and y + aircraft_height < fire_y + fireball_height) :
                     if crash(): 
-                        import flyingPikachu
-                        flyingPikachu.initGame()
-                        return
+                        return True
                     else :
                         import select_menu
                         select_menu.initGame()
@@ -234,7 +230,10 @@ def initGame():
     ultra.daemon = True
     ultra.start()
 
-    runGame()
+    while runGame() == True:
+        sleep(0.1)
+    ultra.endGame()
+    
 
 if __name__ == '__main__':
     initGame()

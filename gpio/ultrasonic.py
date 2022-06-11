@@ -95,8 +95,7 @@ class Ultrasonic(threading.Thread):
             self.isStart = True
             print("start!")
         
-
-        while True:
+        while self.isEnd == False:
             self.distance = self.controlUltrasonic()
 
             
