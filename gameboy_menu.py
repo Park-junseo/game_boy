@@ -7,6 +7,8 @@ from gpio.button import *
 
 from env import *
 
+import importlib
+
 #배경화면 그리기
 def drawMenuBg():
     global gamepad, menuBg
@@ -144,16 +146,14 @@ def initGame():
     clock = pygame.time.Clock()
     importModule = runGame()
 
-    if importModule == "select_menu" :
-        import select_menu
-    else :
-        return True
+    if importModule != None :
+        importlib.reload(importModule)
+    # if importModule == "select_menu" :
+    #     import select_menu
 
 #jaejun
 
 # if __name__ == '__main__':
 #     initGame()
-while True :
-    print("gameboy_menu")
-    if initGame() == True :
-        break
+print("gameboy_menu")
+initGame()

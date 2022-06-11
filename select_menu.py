@@ -5,6 +5,8 @@ from pygame.surface import Surface
 
 from gpio.button import *
 
+import importlib
+
 def drawMenuBg():
     global gamepad, menuBg
     gamepad.blit(menuBg,(0,0))
@@ -138,21 +140,20 @@ def initGame():
     
     importModule = runGame()
 
-    if importModule == "gameboy_menu" :
-        import gameboy_menu
-    elif importModule == "flyingPikachu" :
-        import flyingPikachu
-    elif importModule == "pingPong" :
-        import pingPong
-    else :
-        return True
+    if importModule != None :
+        importlib.reload(importModule)
+
+    # if importModule == "gameboy_menu" :
+    #     import gameboy_menu
+    # elif importModule == "flyingPikachu" :
+    #     import flyingPikachu
+    # elif importModule == "pingPong" :
+    #     import pingPong
 
 # 여기에서 실행 시 gameboy_menu로 실행
 if __name__ == '__main__':
     import gameboy_menu
     gameboy_menu.initGame()
 else :
-    while True :
-        print("select_menu")
-        if initGame() == True :
-            break
+    print("select_menu")
+    initGame()
