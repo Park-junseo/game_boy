@@ -44,8 +44,6 @@ class Ultrasonic:
     def __init__(self) :
         super().__init__()
 
-        self = super(Ultrasonic, cls).__new__(cls)
-
         self.TRIG_PIN = 20
         self.ECHO_PIN = 21
 
