@@ -140,6 +140,9 @@ def initGame():
     initMenuList()
 
     gkey = GPIOKey()
+    gkey.daemon = True
+    if gkey.is_alive == False:
+        gkey.start()
 
     #e: 초기 설정
 
