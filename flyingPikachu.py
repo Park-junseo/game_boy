@@ -102,21 +102,6 @@ def runGame():
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     y_change = 0
-
-        # s:울트라센서
-
-        if ultra != None :
-            distance = (ultra.distance -10)*10
-
-            if distance <0 :
-                y = 0
-            elif y > pad_height - aircraft_height:
-                y = pad_height - aircraft_height
-
-            print("distance" + str(y))
-
-
-        # e:울트라센서
         
 
         # 게임패드 초기화
@@ -134,6 +119,18 @@ def runGame():
 
         drawObject(background1, background1_x, 0)
         drawObject(background2, background2_x, 0)
+
+        # s:울트라센서
+        if ultra != None :
+            distance = (ultra.distance -10)*10
+
+            if distance <0 :
+                y = 0
+            elif y > pad_height - aircraft_height:
+                y = pad_height - aircraft_height
+
+            print("distance" + str(y))
+        # e:울트라센서
 
         # 피카츄 위치
         if y_change != 0 :
