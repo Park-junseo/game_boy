@@ -66,6 +66,8 @@ class Ultrasonic(threading.Thread):
 
     def controlUltrasonic(self):
         distance = 0.0
+        pulse_start = 0.0
+        pulse_end = 0.0
         GPIO.output(self.TRIG_PIN, False)
         time.sleep(0.5)
         GPIO.output(self.TRIG_PIN, True)
