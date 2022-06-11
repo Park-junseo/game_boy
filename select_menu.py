@@ -149,4 +149,5 @@ if __name__ == '__main__':
     import gameboy_menu
     gameboy_menu.initGame()
 else :
+    print("select_menu")
     initGame()
