@@ -85,6 +85,8 @@ class Ultrasonic(threading.Thread):
             self.isStart = True
             print("start!")
         
+        self.distance = 0.0
+
         try:
             while True:
                 self.distance = self.controlUltrasonic()

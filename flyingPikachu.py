@@ -6,7 +6,7 @@ import pygame
 import random
 from time import sleep
 
-from gpio.ultrasonic import Ultrasonic
+from gpio.ultrasonic import *
 
 WHITE = (255,255,255)
 RED = (255, 0, 0)
