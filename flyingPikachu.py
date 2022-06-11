@@ -235,7 +235,7 @@ def initGame():
 
     ultra = Ultrasonic()
     ultra.daemon = True
-    ultra.run()
+    ultra.start()
 
     runGame()
 
