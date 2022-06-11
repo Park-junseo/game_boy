@@ -146,10 +146,9 @@ def initGame():
     clock = pygame.time.Clock()
     importModule = runGame()
 
-    if importModule != None :
-        importlib.reload(importModule)
-    # if importModule == "select_menu" :
-    #     import select_menu
+    if importModule == "select_menu" :
+        import select_menu
+        importlib.reload(select_menu)
 
 #jaejun
 

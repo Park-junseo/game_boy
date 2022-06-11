@@ -140,15 +140,16 @@ def initGame():
     
     importModule = runGame()
 
-    if importModule != None :
-        importlib.reload(importModule)
 
-    # if importModule == "gameboy_menu" :
-    #     import gameboy_menu
-    # elif importModule == "flyingPikachu" :
-    #     import flyingPikachu
-    # elif importModule == "pingPong" :
-    #     import pingPong
+    if importModule == "gameboy_menu" :
+        import gameboy_menu
+        importlib.reload(gameboy_menu)
+    elif importModule == "flyingPikachu" :
+        import flyingPikachu
+        importlib.reload(flyingPikachu)
+    elif importModule == "pingPong" :
+        import pingPong
+        importlib.reload(pingPong)
 
 # 여기에서 실행 시 gameboy_menu로 실행
 if __name__ == '__main__':
