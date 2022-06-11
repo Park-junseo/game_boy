@@ -107,6 +107,7 @@ def runGame():
 
         if ultra != None :
             distance = (ultra.distance -10)*10
+            print("distance" + str(distance))
 
             if distance <0 :
                 y = 0
