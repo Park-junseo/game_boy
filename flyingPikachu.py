@@ -41,13 +41,21 @@ def dispMessage(text):
     #runGame()
 
 
-# 충돌
+# 충돌 replay 시 return True
 def crash():
     global gamepad, ultra
     ultra.endGame()
     dispMessage('<- to retry, -> to quit')
     
-    return True
+    while True: 
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN :
+                if event.key == pygame.K_LEFT : 
+                    return True
+                elif event.key == pygame.K_RIGHT :
+                    return False
+        
+        clock.tick(60)
 
 def drawObject(obj, x, y):
     global gamepad
@@ -73,6 +81,7 @@ def runGame():
     random.shuffle(fires)
     fire = fires[0]
 
+    replayGame = False
     crashed = False
     while not crashed:
         for event in pygame.event.get():
@@ -153,20 +162,14 @@ def runGame():
         if x + aircraft_width > ball_x:
             if(y > ball_y and y < ball_y + ball_height) or \
             (y + aircraft_height > ball_y and y + aircraft_height < ball_y + ball_height):
-                if crash() :
-                    while True: 
-                        for event in pygame.event.get():
-                            if event.type == pygame.KEYDOWN :
-                                if event.key == pygame.K_LEFT : 
-                                    import flyingPikachu
-                                    flyingPikachu.initGame()
-                                    return
-                                elif event.key == pygame.K_RIGHT :
-                                    import select_menu
-                                    select_menu.initGame()
-                                    return
-                        
-                        clock.tick(60)
+                if crash(): 
+                    import flyingPikachu
+                    flyingPikachu.initGame()
+                    return
+                else :
+                    import select_menu
+                    select_menu.initGame()
+                    return
 
         # 충돌 (피카츄 -> 파이어볼)
         if fire[1] != None :
@@ -180,20 +183,14 @@ def runGame():
             if x + aircraft_width > fire_x :
                 if (y > fire_y and y < fire_y + fireball_height) or \
                 (y + aircraft_height > fire_y and y + aircraft_height < fire_y + fireball_height) :
-                    if crash() :
-                        while True: 
-                            for event in pygame.event.get():
-                                if event.type == pygame.KEYDOWN :
-                                    if event.key == pygame.K_LEFT : 
-                                        import flyingPikachu
-                                        flyingPikachu.initGame()
-                                        return
-                                    elif event.key == pygame.K_RIGHT :
-                                        import select_menu
-                                        select_menu.initGame()
-                                        return
-                            
-                            clock.tick(60)
+                    if crash(): 
+                        import flyingPikachu
+                        flyingPikachu.initGame()
+                        return
+                    else :
+                        import select_menu
+                        select_menu.initGame()
+                        return
         #-----------------
 
 
