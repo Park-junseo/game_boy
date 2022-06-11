@@ -9,10 +9,12 @@ class GPIOKey(threading.Thread):
         self.UP_PIN = 15
         self.DOWN_PIN = 16
         self.CON_PIN = 17
+        self.X_PIN = 18
 
         self.UP=0
         self.DOWN=0
         self.CON=0
+        self.X =0
 
         self.curPressedKey = False
 
@@ -20,6 +22,7 @@ class GPIOKey(threading.Thread):
         GPIO.setup(self.UP_PIN,GPIO.IN)
         GPIO.setup(self.DOWN_PIN,GPIO.IN)
         GPIO.setup(self.CON_PIN,GPIO.IN)
+        GPIO.setup(self.X_PIN,GPIO.IN)
 
     def run(self):
         while True:
@@ -35,6 +38,10 @@ class GPIOKey(threading.Thread):
                 self.CON = self.CON + 1
             else :
                 self.CON = 0
+            if GPIO.input(self.X_PIN) == 0:
+                self.X = self.X + 1
+            else :
+                self.X = 0
 
             if self.UP == 1:
                 self.curPressedKey = "UP"
@@ -42,8 +49,10 @@ class GPIOKey(threading.Thread):
                 self.curPressedKey = "DOWN"
             elif self.CON == 1:
                 self.curPressedKey = "CON"
+            elif self.X == 1:
+                self.curPressedKey = "X"
             
-            if bool(self.UP) | bool(self.DOWN) | bool(self.CON) == False :
+            if bool(self.UP) | bool(self.DOWN) | bool(self.CON) | bool(self.X) == False :
                 self.curPressedKey = False
             
             sleep(0.1)
@@ -65,6 +74,8 @@ def testButton():
                 print("DOWN")
             elif t.getCurPressedKey("CON") :
                 print("CON")
+            elif t.getCurPressedKey("X") :
+                print("X")
             sleep(1.0)
     except KeyboardInterrupt:
         GPIO.cleanup()

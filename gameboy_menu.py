@@ -3,6 +3,8 @@ __author__ = 'psbsanno@gmail.com'
 import os
 import pygame
 
+from gpio.button import GPIOKey
+
 from env import *
 
 #배경화면 그리기
@@ -69,7 +71,7 @@ def getMenuList(index):
 
 #게임 모드
 def runGame():
-    global gamepad, clock, menuTitle, menuKey
+    global gamepad, clock, menuTitle, menuKey, gkey
 
     (titleX, titleY) = initMenuTitle()
     
@@ -98,6 +100,22 @@ def runGame():
 
             #e: 키 조작
 
+            #s: gpio 키조작
+            if(gkey.getCurPressedKey("UP")) :
+                menuKey = getMenuKey(-1)
+            elif(gkey.getCurPressedKey("DOWN")) :
+                menuKey = getMenuKey(1)
+            elif(gkey.getCurPressedKey("X")) :
+                crashed = True
+            elif(gkey.getCurPressedKey("CON")) :
+                if getMenuList(menuKey) == "SELECT GAME":
+                    import select_menu
+                    select_menu.initGame()
+                    return
+                elif getMenuList(menuKey) == "EXIT":
+                    crashed = True
+            #e: gpio 키조작
+
         #s: 화면 표시
         gamepad.fill(WHITE)
         drawMenuBg()
@@ -111,7 +129,7 @@ def runGame():
     pygame.quit()
 
 def initGame():
-    global gamepad, clock, menuBg, menuTitle
+    global gamepad, clock, menuBg, menuTitle, gkey
 
     #s: 초기 설정
     pygame.init()
@@ -120,6 +138,11 @@ def initGame():
     menuBg = pygame.image.load(os.path.join(rpImages, rsMainBgSrc))#pygame.image.load(mainBgSrc).convert_alpha()
     menuTitle = pygame.image.load(os.path.join(rpImages, rpmainTitleSrc)) #pygame.image.load(mainTitleSrc).convert_alpha()
     initMenuList()
+
+    gkey = GPIOKey()
+    gkey.daemon = True
+    gkey.start()
+
     #e: 초기 설정
 
     clock = pygame.time.Clock()
