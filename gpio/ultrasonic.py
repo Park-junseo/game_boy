@@ -59,6 +59,7 @@ class Ultrasonic(threading.Thread):
             GPIO.setup(cls.instance.ECHO_PIN, GPIO.IN)
 
             cls.instance.isStart = False
+            cls.instance.isEnd = False
         else:
             print('recycle')
         return cls.instance
@@ -93,10 +94,10 @@ class Ultrasonic(threading.Thread):
             print("start!")
         
 
-        while self.isStart:
+        while self.isEnd == False:
             self.distance = self.controlUltrasonic()
 
             
     def endGame(self) :
-        self.isStart = False
+        self.isEnd = True
 
