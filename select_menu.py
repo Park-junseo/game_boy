@@ -117,6 +117,7 @@ def runGame():
 
     pygame.quit()
 
+
 def initGame():
     global gamepad, clock, menuBg, gkey
 
@@ -143,11 +144,15 @@ def initGame():
         import flyingPikachu
     elif importModule == "pingPong" :
         import pingPong
+    else :
+        return True
 
 # 여기에서 실행 시 gameboy_menu로 실행
 if __name__ == '__main__':
     import gameboy_menu
     gameboy_menu.initGame()
 else :
-    print("select_menu")
-    initGame()
+    while True :
+        print("select_menu")
+        if initGame() == True :
+            break

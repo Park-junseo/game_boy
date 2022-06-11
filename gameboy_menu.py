@@ -146,10 +146,14 @@ def initGame():
 
     if importModule == "select_menu" :
         import select_menu
+    else :
+        return True
 
 #jaejun
 
 # if __name__ == '__main__':
 #     initGame()
-print("gameboy_menu")
-initGame()
+while True :
+    print("gameboy_menu")
+    if initGame() == True :
+        break
