@@ -83,6 +83,10 @@ def runGame():
                         import gameboy_menu
                         gameboy_menu.initGame()
                         return
+                    elif getMenuList(menuKey) == "FLYING PIKACHU":
+                        import flyingPikachu
+                        flyingPikachu.initGame()
+                        return
 
             #e: 키 조작
 
