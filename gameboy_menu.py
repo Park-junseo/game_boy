@@ -106,12 +106,16 @@ def runGame():
 
             #s: gpio 키조작
             if gkey.getCurPressedKey("UP") :
+                print("UP")
                 menuKey = getMenuKey(-1)
             elif gkey.getCurPressedKey("DOWN") :
+                print("DOWN")
                 menuKey = getMenuKey(1)
             elif gkey.getCurPressedKey("X") :
+                print("X")
                 crashed = True
             elif gkey.getCurPressedKey("CON") :
+                print("CON")
                 if getMenuList(menuKey) == "SELECT GAME":
                     import select_menu
                     select_menu.initGame()
@@ -127,9 +131,6 @@ def runGame():
         drawMenuList(menuKey)
         pygame.display.update()
         #e: 화면 표시
-
-        if gkey.curPressedKey :
-            print(gkey.curPressedKey)
 
         clock.tick(60)
 
