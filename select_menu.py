@@ -3,7 +3,7 @@ import pygame
 from env import *
 from pygame.surface import Surface
 
-from gpio.button import GPIOKey
+from gpio.button import *
 
 def drawMenuBg():
     global gamepad, menuBg

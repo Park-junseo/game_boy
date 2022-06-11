@@ -3,7 +3,7 @@ __author__ = 'psbsanno@gmail.com'
 import os
 import pygame
 
-from gpio.button import GPIOKey
+from gpio.button import *
 
 from env import *
 
