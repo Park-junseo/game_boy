@@ -142,11 +142,7 @@ def initGame():
     menuTitle = pygame.image.load(os.path.join(rpImages, rpmainTitleSrc)) #pygame.image.load(mainTitleSrc).convert_alpha()
     initMenuList()
 
-    if(GPIOKey.gpioKey == None):
-        print("unset gpio!")
-    gkey = GPIOKey.start()
-    if(GPIOKey.gpioKey != None):
-        print("set gpio!")
+    gkey = GPIOKey()
 
     #e: 초기 설정
 

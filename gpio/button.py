@@ -4,8 +4,6 @@ import threading
 
 class GPIOKey(threading.Thread):
 
-    gpioKey = None
-
     def __init__(self) :
         super().__init__()
 
@@ -26,6 +24,14 @@ class GPIOKey(threading.Thread):
         GPIO.setup(self.DOWN_PIN,GPIO.IN)
         GPIO.setup(self.CON_PIN,GPIO.IN)
         GPIO.setup(self.X_PIN,GPIO.IN)
+
+    def __new__(cls):
+        if not hasattr(cls,'instance'):
+            print('create')
+            cls.instance = super(GPIOKey, cls).__new__(cls)
+        else:
+            print('recycle')
+        return cls.instance
 
     def run(self):
         while True:
@@ -67,17 +73,8 @@ class GPIOKey(threading.Thread):
 
     @classmethod
     def cleanupGPIO(cls) :
-        cls.gpioKey = None
         GPIO.cleanup()
     
-    @classmethod
-    def start(cls) :
-        if cls.gpioKey == None:
-            cls.gpioKey = GPIOKey()
-            cls.gpioKey.daemon = True
-            cls.gpioKey.start()
-        
-        return cls.gpioKey
 
 def testButton():
     t = GPIOKey()
