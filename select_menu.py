@@ -104,6 +104,10 @@ def runGame():
                 import gameboy_menu
                 gameboy_menu.initGame()
                 return
+            elif getMenuList(menuKey) == "FLYING PIKACHU":
+                import flyingPikachu
+                flyingPikachu.initGame()
+                return
         #e: gpio 키조작
 
         #s: 화면 표시
