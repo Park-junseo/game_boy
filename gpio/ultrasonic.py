@@ -88,12 +88,10 @@ class Ultrasonic(threading.Thread):
             print("start!")
         
 
-        try:
-            while True:
-                self.distance = self.controlUltrasonic()
-        except KeyboardInterrupt:
-            GPIO.cleanup()
+        while self.isStart:
+            self.distance = self.controlUltrasonic()
 
             
-
+    def endGame(self) :
+        self.isStart = False
 

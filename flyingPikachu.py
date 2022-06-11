@@ -43,7 +43,8 @@ def dispMessage(text):
 
 # 충돌
 def crash():
-    global gamepad
+    global gamepad, ultra
+    ultra.endGame()
     dispMessage('<- to retry, -> to quit')
     
     return True
