@@ -54,7 +54,7 @@ class Ultrasonic(threading.Thread):
 
             cls.instance.distance = 0.0
 
-            GPIO.setmode(GPIO.BCM)
+            # GPIO.setmode(GPIO.BCM)
             GPIO.setup(cls.instance.TRIG_PIN, GPIO.OUT)
             GPIO.setup(cls.instance.ECHO_PIN, GPIO.IN)
 
@@ -78,6 +78,9 @@ class Ultrasonic(threading.Thread):
         pulse_duration = pulse_end - pulse_start
         distance = pulse_duration * 17000
         distance = round(distance, 2)
+
+        print(distance)
+
         return distance
 
     def run(self) :
