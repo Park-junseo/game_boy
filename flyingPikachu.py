@@ -122,7 +122,7 @@ def runGame():
 
         # s:울트라센서
         if ultra != None :
-            distance = (ultra.distance -10)*10
+            distance = int((ultra.distance -10)*10)
 
             if distance <0 :
                 y = 0
