@@ -148,10 +148,10 @@ def initGame():
 
     if importModule == "select_menu" :
         import select_menu
-        importlib.reload(select_menu)
+        # importlib.reload(select_menu)
 
 #jaejun
-
+print(__name__)
 # if __name__ == '__main__':
 #     initGame()
 print("gameboy_menu")
