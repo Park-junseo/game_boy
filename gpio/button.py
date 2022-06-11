@@ -62,6 +62,9 @@ class GPIOKey(threading.Thread):
             self.curPressedKey = False
             return True
 
+    def cleanupGPIO(self) :
+        GPIO.cleanup()
+
 def testButton():
     t = GPIOKey()
     t.daemon = True

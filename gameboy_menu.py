@@ -128,8 +128,12 @@ def runGame():
         pygame.display.update()
         #e: 화면 표시
 
+        if gkey.curPressedKey :
+            print(gkey.curPressedKey)
+
         clock.tick(60)
 
+    gkey.cleanupGPIO()
     pygame.quit()
 
 def initGame():
