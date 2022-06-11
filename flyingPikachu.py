@@ -6,6 +6,8 @@ import pygame
 import random
 from time import sleep
 
+from gpio.ultrasonic import Ultrasonic
+
 WHITE = (255,255,255)
 RED = (255, 0, 0)
 pad_width = 1024
@@ -52,7 +54,7 @@ def drawObject(obj, x, y):
 
 # 게임실행
 def runGame():
-    global gamepad, aircraft, clock, background1, background2 
+    global gamepad, aircraft, clock, background1, background2, ultra
     global ball, fires
 
     x = pad_width * 0.05
@@ -87,6 +89,17 @@ def runGame():
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     y_change = 0
+
+        # s:울트라센서
+
+        distance = (ultra.controlUltrasonic() -10)*10
+
+        if distance <0 :
+            y = 0
+        elif y > pad_height - aircraft_height:
+            y = pad_height - aircraft_height
+
+        # e:울트라센서
         
 
         # 게임패드 초기화
@@ -106,11 +119,12 @@ def runGame():
         drawObject(background2, background2_x, 0)
 
         # 피카츄 위치
-        y += y_change
-        if y < 0:
-            y = 0
-        elif y > pad_height - aircraft_height:
-            y = pad_height - aircraft_height
+        if y_change != 0 :
+            y += y_change
+            if y < 0:
+                y = 0
+            elif y > pad_height - aircraft_height:
+                y = pad_height - aircraft_height
         
         # 찌리리공 위치
         ball_x -= 7
@@ -195,7 +209,7 @@ def runGame():
     quit()
 
 def initGame():
-    global gamepad, aircraft, clock, background1, background2
+    global gamepad, aircraft, clock, background1, background2, ultra
     global ball, fires
 
     fires = []
@@ -216,6 +230,9 @@ def initGame():
         fires.append((i+2, None))
 
     clock = pygame.time.Clock()
+
+    ultra = Ultrasonic()
+
     runGame()
 
 if __name__ == '__main__':
