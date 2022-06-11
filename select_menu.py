@@ -3,7 +3,7 @@ import pygame
 from env import *
 from pygame.surface import Surface
 
-import gpio.button as button
+from gpio.button import GPIOKey
 
 def drawMenuBg():
     global gamepad, menuBg
@@ -62,7 +62,7 @@ def getMenuList(index):
     return menuList[index]
 
 def runGame():
-    global gamepad, clock, menuKey, gkey
+    global gamepad, clock, menuKey
 
     
     crashed =False
@@ -89,17 +89,18 @@ def runGame():
             #e: 키 조작
 
         #s: gpio 키조작
-        if gkey.getCurPressedKey("UP") :
-            menuKey = getMenuKey(-1)
-        elif gkey.getCurPressedKey("DOWN") :
-            menuKey = getMenuKey(1)
-        elif gkey.getCurPressedKey("X") :
-            crashed = True
-        elif gkey.getCurPressedKey("CON") :
-            if getMenuList(menuKey) == "Back":
-                import gameboy_menu
-                gameboy_menu.initGame()
-                return
+        if GPIOKey.gpioKey != None :
+            if GPIOKey.gpioKey.getCurPressedKey("UP") :
+                menuKey = getMenuKey(-1)
+            elif GPIOKey.gpioKey.getCurPressedKey("DOWN") :
+                menuKey = getMenuKey(1)
+            elif GPIOKey.gpioKey.getCurPressedKey("X") :
+                crashed = True
+            elif GPIOKey.gpioKey.getCurPressedKey("CON") :
+                if getMenuList(menuKey) == "Back":
+                    import gameboy_menu
+                    gameboy_menu.initGame()
+                    return
         #e: gpio 키조작
 
         #s: 화면 표시
@@ -114,7 +115,7 @@ def runGame():
     pygame.quit()
 
 def initGame():
-    global gamepad, clock, menuBg, gkey
+    global gamepad, clock, menuBg
 
     #s: 초기 설정
     pygame.init()
@@ -122,15 +123,11 @@ def initGame():
     menuBg = pygame.image.load(os.path.join(rpImages, rsMainBgSrc))#pygame.image.load(mainBgSrc).convert_alpha()
     initMenuList()
 
-    gkey = button.GPIOKey()
-    gkey.daemon = True
-    gkey.start()
-
+    GPIOKey.start()
     #e: 초기 설정
 
     clock = pygame.time.Clock()
     runGame()
-    gkey.cleanupGPIO()
 
 # 여기에서 실행 시 gameboy_menu로 실행
 if __name__ == '__main__':

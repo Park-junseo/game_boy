@@ -3,7 +3,7 @@ __author__ = 'psbsanno@gmail.com'
 import os
 import pygame
 
-import gpio.button as button
+from gpio.button import GPIOKey
 
 from env import *
 
@@ -101,19 +101,20 @@ def runGame():
             #e: 키 조작
 
         #s: gpio 키조작
-        if gkey.getCurPressedKey("UP") :
-            menuKey = getMenuKey(-1)
-        elif gkey.getCurPressedKey("DOWN") :
-            menuKey = getMenuKey(1)
-        elif gkey.getCurPressedKey("X") :
-            crashed = True
-        elif gkey.getCurPressedKey("CON") :
-            if getMenuList(menuKey) == "SELECT GAME":
-                import select_menu
-                select_menu.initGame()
-                return
-            elif getMenuList(menuKey) == "EXIT":
+        if GPIOKey.gpioKey != None :
+            if GPIOKey.gpioKey.getCurPressedKey("UP") :
+                menuKey = getMenuKey(-1)
+            elif GPIOKey.gpioKey.getCurPressedKey("DOWN") :
+                menuKey = getMenuKey(1)
+            elif GPIOKey.gpioKey.getCurPressedKey("X") :
                 crashed = True
+            elif GPIOKey.gpioKey.getCurPressedKey("CON") :
+                if getMenuList(menuKey) == "SELECT GAME":
+                    import select_menu
+                    select_menu.initGame()
+                    return
+                elif getMenuList(menuKey) == "EXIT":
+                    crashed = True
         #e: gpio 키조작
 
         #s: 화면 표시
@@ -139,15 +140,12 @@ def initGame():
     menuTitle = pygame.image.load(os.path.join(rpImages, rpmainTitleSrc)) #pygame.image.load(mainTitleSrc).convert_alpha()
     initMenuList()
 
-    gkey = button.GPIOKey()
-    gkey.daemon = True
-    gkey.start()
+    GPIOKey.start()
 
     #e: 초기 설정
 
     clock = pygame.time.Clock()
     runGame()
-    gkey.cleanupGPIO()
 
 #jaejun
 

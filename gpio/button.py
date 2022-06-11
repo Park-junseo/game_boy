@@ -3,6 +3,9 @@ from time import sleep
 import threading
 
 class GPIOKey(threading.Thread):
+
+    gpioKey = None
+
     def __init__(self) :
         super().__init__()
 
@@ -62,8 +65,15 @@ class GPIOKey(threading.Thread):
             self.curPressedKey = False
             return True
 
-    def cleanupGPIO(self) :
+    def cleanupGPIO() :
+        GPIOKey.gpioKey = None
         GPIO.cleanup()
+    
+    def start() :
+        if GPIOKey.gpioKey == None:
+            GPIOKey.gpioKey = GPIOKey()
+            GPIOKey.gpioKey.daemon = True
+            GPIOKey.gpioKey.start()
 
 def testButton():
     t = GPIOKey()
