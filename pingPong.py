@@ -116,11 +116,11 @@ def tick():
 
 pygame.init()
 pygame.key.set_repeat(5, 5)
-SURFACE = pygame.display.set_mode((600, 800))
+SURFACE = pygame.display.set_mode((600, 600))
 FPSCLOCK = pygame.time.Clock()
 BLOCKS = []
-PADDLE = Block((242, 242, 0), Rect(300, 700, 100, 30))
-BALLS = [Block((242, 242, 0), Rect(300, 400, 20, 20), 10)]
+PADDLE = Block((242, 242, 0), Rect(300, 500, 100, 30))
+BALLS = [Block((242, 242, 0), Rect(300, 300, 20, 20), 10)]
 
 isNeedToRestart = False
 isFeverTime = False
@@ -134,11 +134,11 @@ def init():
 
     pygame.init()
     pygame.key.set_repeat(5, 5)
-    SURFACE = pygame.display.set_mode((600, 800))
+    SURFACE = pygame.display.set_mode((600, 600))
     FPSCLOCK = pygame.time.Clock()
     BLOCKS = []
-    PADDLE = Block((242, 242, 0), Rect(300, 700, 100, 30))
-    BALLS = [Block((242, 242, 0), Rect(300, 400, 20, 20), 10)]
+    PADDLE = Block((242, 242, 0), Rect(300, 500, 100, 30))
+    BALLS = [Block((242, 242, 0), Rect(300, 300, 20, 20), 10)]
     isNeedToRestart = False
     isFeverTime = False
     score = 0
@@ -190,7 +190,7 @@ def main():
         
         # 공이 패들 밑으로 내려가면 해당 공은 삭제
         for BALL in BALLS:
-            if BALL.rect.centery > 800 and len(BLOCKS) > 0:
+            if BALL.rect.centery > 600 and len(BLOCKS) > 0:
                 BALLS.remove(BALL)
 
         # 피버타임이 끝난 경우
