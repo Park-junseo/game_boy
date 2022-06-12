@@ -61,7 +61,6 @@ class Ultrasonic(threading.Thread):
 
             # GPIO.setmode(GPIO.BCM)
             if GPIO == None :
-                cls.instance = None
                 return None
 
             GPIO.setup(cls.instance.TRIG_PIN, GPIO.OUT)
