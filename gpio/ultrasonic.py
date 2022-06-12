@@ -124,7 +124,7 @@ class Ultrasonic(threading.Thread):
         distance = pulse_duration * 17000
         distance = round(distance, 2)
         
-        print(distance)
+        # print(distance)
 
         return distance
 
