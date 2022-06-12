@@ -63,7 +63,7 @@ def tick():
     # s:울트라센서
     if ultra != None :
         distance = int((ultra.distance -10.0)*15.0)
-        PADDLE.rect.centerx = distance
+        PADDLE.rect.centerx = int(distance)
         print("distance:" + str(distance))
     # e:울트라센서
 
@@ -231,6 +231,7 @@ def main():
 
             if gkey != None:
                 if gkey.getCurPressedKey("UP") :
+                    importModule = None
                     isNeedToRestart = False
                 elif gkey.getCurPressedKey("DOWN") :
                     importModule = "select_menu"
