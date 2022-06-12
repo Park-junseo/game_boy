@@ -174,24 +174,24 @@ def runGame():
 
         #-----------------
         # 충돌 (피카츄 -> 찌리리공)
-        # if x + aircraft_width > ball_x:
-        #     if(y > ball_y and y < ball_y + ball_height) or \
-        #     (y + aircraft_height > ball_y and y + aircraft_height < ball_y + ball_height):
-        #         return crash()
+        if x + aircraft_width > ball_x:
+            if(y > ball_y and y < ball_y + ball_height) or \
+            (y + aircraft_height > ball_y and y + aircraft_height < ball_y + ball_height):
+                return crash()
 
-        # # 충돌 (피카츄 -> 파이어볼)
-        # if fire[1] != None :
-        #     if fire[0] == 0 :
-        #         fireball_width = fireball1_width
-        #         fireball_height = fireball1_height
-        #     elif fire[0] == 1 :
-        #         fireball_width = fireball2_width
-        #         fireball_height = fireball2_height
+        # 충돌 (피카츄 -> 파이어볼)
+        if fire[1] != None :
+            if fire[0] == 0 :
+                fireball_width = fireball1_width
+                fireball_height = fireball1_height
+            elif fire[0] == 1 :
+                fireball_width = fireball2_width
+                fireball_height = fireball2_height
             
-        #     if x + aircraft_width > fire_x :
-        #         if (y > fire_y and y < fire_y + fireball_height) or \
-        #         (y + aircraft_height > fire_y and y + aircraft_height < fire_y + fireball_height) :
-        #             return crash()
+            if x + aircraft_width > fire_x :
+                if (y > fire_y and y < fire_y + fireball_height) or \
+                (y + aircraft_height > fire_y and y + aircraft_height < fire_y + fireball_height) :
+                    return crash()
         #-----------------
 
 
