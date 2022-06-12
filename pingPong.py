@@ -243,6 +243,7 @@ def main():
                     importModule = "select_menu"
             
             if importModule != None :
+                ultra.endGame()
                 if importModule in sys.modules:
                     importlib.reload(sys.modules[importModule])
                 else:
