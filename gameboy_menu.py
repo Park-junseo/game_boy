@@ -156,6 +156,8 @@ def initGame():
             importlib.reload(sys.modules[importModule])
         else:
             module = __import__(importModule)
+if __name__ == '__main__' :
+    cleanupGPIO()
 
 print("gameboy_menu")
 initGame()
