@@ -30,6 +30,7 @@ class GPIOKey(threading.Thread):
             cls.instance.isStart = False
 
             if GPIO == None :
+                cls.instance = False
                 return None
 
             GPIO.setmode(GPIO.BCM)

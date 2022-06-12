@@ -49,7 +49,7 @@ class Ultrasonic(threading.Thread):
 
     def __new__(cls):
         if not hasattr(cls,'instance'):
-            print('create button')
+            print('create ultra')
             cls.instance = super(Ultrasonic, cls).__new__(cls)
 
             cls.instance.TRIG_PIN = 20
@@ -61,6 +61,7 @@ class Ultrasonic(threading.Thread):
 
             # GPIO.setmode(GPIO.BCM)
             if GPIO == None :
+                cls.instance = None
                 return None
 
             GPIO.setup(cls.instance.TRIG_PIN, GPIO.OUT)

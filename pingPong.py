@@ -52,6 +52,7 @@ def tick():
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
+            cleanupGPIO()
             sys.exit()
         elif event.type == KEYDOWN:
             if event.key == K_LEFT:
@@ -160,16 +161,6 @@ def main():
 
     importModule = None
 
-    gkey = GPIOKey()
-    if gkey != None:
-        gkey.daemon = True
-        gkey.start()
-
-    ultra = Ultrasonic()
-    if ultra != None :
-        ultra.daemon = True
-        ultra.start()
-
     # 블록 추가
     for ypos, color in enumerate(colors, start=0):
         for xpos in range(0, 5):
@@ -234,6 +225,7 @@ def main():
                     importModule = "select_menu"
                 if event.type == QUIT:
                     pygame.quit()
+                    cleanupGPIO()
                     sys.exit()
                     break
 
@@ -255,9 +247,22 @@ def main():
                 init()
                 main()
                 break
-            
+
+def initThread():
+    global gkey, ultra
+    gkey = GPIOKey()
+    if gkey != None:
+        gkey.daemon = True
+        gkey.start()
+
+    ultra = Ultrasonic()
+    if ultra != None :
+        ultra.daemon = True
+        ultra.start()
 
 if __name__ == '__main__':
+    initThread()
     main()
 else :
+    initThread()
     main()
