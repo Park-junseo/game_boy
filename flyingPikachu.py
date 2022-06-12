@@ -49,7 +49,7 @@ def dispMessage(text):
 # 충돌 return 다음 액션값
 def crash():
     global gamepad, ultra, gkey
-    dispMessage('<- to retry, -> to quit')
+    dispMessage('SW1 to retry, SW2 to quit')
     
     while True: 
         for event in pygame.event.get():
@@ -72,7 +72,7 @@ def drawObject(obj, x, y):
 
 # 게임실행
 def runGame():
-    global gamepad, aircraft, clock, background1, background2, ultra
+    global gamepad, aircraft, clock, background1, background2, ultra, gkey
     global ball, fires
 
     x = pad_width * 0.05
@@ -110,7 +110,10 @@ def runGame():
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     y_change = 0
-        
+    
+        if gkey != None:
+            if gkey.getCurPressedKey("X") :
+                return "select_menu"
 
         # 게임패드 초기화
         gamepad.fill(WHITE)
