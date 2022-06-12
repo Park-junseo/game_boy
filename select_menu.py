@@ -146,9 +146,9 @@ def initGame():
 
     if importModule != None :
         if importModule in sys.modules:
-            importlib.reload(sys.modules[importModule])
+            return importlib.reload(sys.modules[importModule])
         else:
-            module = __import__(importModule)
+            return __import__(importModule)
 
 # 여기에서 실행 시 gameboy_menu로 실행
 if __name__ == '__main__':
