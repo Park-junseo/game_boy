@@ -261,16 +261,6 @@ def initGame():
 
             break
 
-    # while True:
-    #     importModule = runGame()
-    #     if importModule == "replay" :
-    #         continue
-    #     elif importModule == "select_menu" :
-    #         import select_menu
-    #         ultra.endGame()
-    #         break
-    #     else :
-    #         break
     
 
 if __name__ == '__main__':
