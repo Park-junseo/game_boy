@@ -68,9 +68,7 @@ class Ultrasonic(threading.Thread):
 
             
         else:
-            print('recycle')
-
-        cls.instance.isEnd = False
+            print('recycle ultra')
 
         return cls.instance
 
@@ -138,14 +136,14 @@ class Ultrasonic(threading.Thread):
             self.isStart = True
             print("start ultra!")
         
-        while self.isEnd == False and GPIO != None:
+        while self.isStart == True and GPIO != None:
             self.distance = self.controlUltrasonic()
 
         print("end ultra")
 
             
     def endGame(self) :
-        self.isEnd = True
+        self.isStart = False
 
 def cleanupGPIO():
     if GPIO != None:
