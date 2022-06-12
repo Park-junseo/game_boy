@@ -10,6 +10,8 @@ from env import *
 import sys
 import importlib
 
+os.environ["SDL_VIDEODRIVER"] = "dummy"
+
 #배경화면 그리기
 def drawMenuBg():
     global gamepad, menuBg
