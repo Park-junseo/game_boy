@@ -61,8 +61,9 @@ def tick():
 
     # s:울트라센서
     if ultra != None :
-        PADDLE.rect.centerx = int((ultra.distance -10.0)*15.0)
-        # print("distance:" + str(y))
+        distance = int((ultra.distance -10.0)*15.0)
+        PADDLE.rect.centerx = distance
+        print("distance:" + str(distance))
     # e:울트라센서
 
     if PADDLE.rect.centerx < min_x :
