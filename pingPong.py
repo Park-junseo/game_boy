@@ -5,6 +5,11 @@ import pygame
 from pygame.locals import QUIT, KEYDOWN, K_LEFT, K_RIGHT, Rect, KEYUP
 import time
 
+from gpio.ultrasonic import *
+from gpio.button import *
+
+import importlib
+
 class Block:
     """ 블록, 공, 패들 오브젝트 """
     def __init__(self, col, rect, speed=0):
@@ -41,7 +46,7 @@ def feverTime():
 
 def tick():
     """ 프레임별 처리 """
-    global BALLS, BLOCKS, score, isFeverTime, startTime, endTime
+    global BALLS, BLOCKS, score, isFeverTime, startTime, endTime, ultra, gkey, min_x, max_x
 
     # 키 입력 처리
     for event in pygame.event.get():
@@ -53,6 +58,18 @@ def tick():
                 PADDLE.rect.centerx -= 10
             elif event.key == K_RIGHT:
                 PADDLE.rect.centerx += 10
+
+    # s:울트라센서
+    if ultra != None :
+        PADDLE.rect.centerx = int((ultra.distance -10.0)*15.0)
+        # print("distance:" + str(y))
+    # e:울트라센서
+
+    if PADDLE.rect.centerx < min_x :
+        PADDLE.rect.centerx = min_x
+    elif PADDLE.rect.centerx > max_x :
+        PADDLE.rect.centerx = max_x
+
     for BALL in BALLS:
         if BALL.rect.centery < 1000:
             BALL.move()
@@ -106,7 +123,7 @@ endTime = 0.0
 
 # 초기화
 def init():
-    global SURFACE, FPSCLOCK, BLOCKS, PADDLE, BALLS, isNeedToRestart, isFeverTime, score, startTime, endTime
+    global SURFACE, FPSCLOCK, BLOCKS, PADDLE, BALLS, isNeedToRestart, isFeverTime, score, startTime, endTime, min_x, max_x
 
     pygame.init()
     pygame.key.set_repeat(5, 5)
@@ -121,8 +138,11 @@ def init():
     startTime = 0.0
     endTime = 0.0
 
+    min_x = 50
+    max_x = 550
+
 def main():
-    global isNeedToRestart, score, isFeverTime, startTime, endTime
+    global isNeedToRestart, score, isFeverTime, startTime, endTime, gkey, ultra, min_x, max_x
 
     myfont = pygame.font.SysFont(None, 80)
     smallfont = pygame.font.SysFont(None, 36)
@@ -134,6 +154,20 @@ def main():
     fps = 30
     colors = [(255, 0, 0), (255, 165, 0), (242, 242, 0),
               (0, 128, 0), (128, 0, 128), (0, 0, 250)]
+    min_x = 50
+    max_x = 550
+
+    importModule = None
+
+    gkey = GPIOKey()
+    if gkey != None:
+        gkey.daemon = True
+        gkey.start()
+
+    ultra = Ultrasonic()
+    if ultra != None :
+        ultra.daemon = True
+        ultra.start()
 
     # 블록 추가
     for ypos, color in enumerate(colors, start=0):
@@ -196,13 +230,24 @@ def main():
                     isNeedToRestart = False
                     break
                 if event.type == KEYDOWN and event.key == pygame.K_q:
-                    import select_menu
-                    select_menu.initGame()
-                    return
+                    importModule = "select_menu"
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
                     break
+
+            if gkey != None:
+                if gkey.getCurPressedKey("UP") :
+                    isNeedToRestart = False
+                elif gkey.getCurPressedKey("DOWN") :
+                    importModule = "select_menu"
+            
+            if importModule != None :
+                if importModule in sys.modules:
+                    importlib.reload(sys.modules[importModule])
+                else:
+                    module = __import__(importModule)
+                return
 
             if isNeedToRestart == False:
                 init()
