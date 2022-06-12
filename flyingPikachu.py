@@ -249,14 +249,14 @@ def initGame():
         if importModule == "flyingPikachu":
             continue
         elif importModule != None :
+            if ultra != None:
+                ultra.endGame()
             if importModule in sys.modules:
                 importlib.reload(sys.modules[importModule])
             else:
                 module = __import__(importModule)
 
-        if ultra != None:
-            ultra.endGame()
-        break
+            break
 
     # while True:
     #     importModule = runGame()
