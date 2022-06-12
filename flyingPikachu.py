@@ -278,3 +278,4 @@ if __name__ == '__main__':
 else :
     print("flyingPikachu")
     initGame()
+    print("end:flyingPikachu")

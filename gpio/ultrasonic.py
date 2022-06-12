@@ -49,7 +49,7 @@ class Ultrasonic(threading.Thread):
 
     def __new__(cls):
         if not hasattr(cls,'instance'):
-            print('create')
+            print('create button')
             cls.instance = super(Ultrasonic, cls).__new__(cls)
 
             cls.instance.TRIG_PIN = 20

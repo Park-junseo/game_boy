@@ -12,7 +12,7 @@ class GPIOKey(threading.Thread):
 
     def __new__(cls):
         if not hasattr(cls,'instance'):
-            print('create')
+            print('create button')
             cls.instance = super(GPIOKey, cls).__new__(cls)
 
             cls.instance.UP_PIN = 15
@@ -38,7 +38,7 @@ class GPIOKey(threading.Thread):
             GPIO.setup(cls.instance.CON_PIN,GPIO.IN)
             GPIO.setup(cls.instance.X_PIN,GPIO.IN)
         else:
-            print('recycle')
+            print('recycle button')
         return cls.instance
 
     def run(self):

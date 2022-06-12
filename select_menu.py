@@ -157,3 +157,4 @@ if __name__ == '__main__':
 else :
     print("select_menu")
     initGame()
+    print("end:select_menu")

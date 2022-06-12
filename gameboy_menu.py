@@ -159,3 +159,4 @@ def initGame():
 
 print("gameboy_menu")
 initGame()
+print("end:gameboy_menu")
